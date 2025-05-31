@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
+
 @custom-variant dark (&:is(.dark *));
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -180,6 +182,26 @@ button:focus-visible {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-transparent text-foreground overflow-hidden;
   }
+}
+
+.draggable{
+  -webkit-app-region: drag;
+}
+.non-draggable{
+  -webkit-app-region: no-drag;
+}
+
+::-webkit-scrollbar{
+  width: 5px;
+}
+::-webkit-scrollbar-track{
+  border-radius: 10px;
+
+}
+::-webkit-scrollbar-thumb{
+  background: gray;
+  border-radius: 10px;
+
 }

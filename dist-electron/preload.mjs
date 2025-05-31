@@ -16,7 +16,25 @@ electron.contextBridge.exposeInMainWorld("ipcRenderer", {
   invoke(...args) {
     const [channel, ...omit] = args;
     return electron.ipcRenderer.invoke(channel, ...omit);
-  }
+  },
   // You can expose other APTs you need here.
   // ...
+  moveWindow: (x, y) => {
+    electron.ipcRenderer.send("move-window", { x, y });
+  },
+  getWindowPosition: () => {
+    return electron.ipcRenderer.invoke("get-window-position");
+  },
+  closeWindow: () => {
+    electron.ipcRenderer.send("close-window");
+  },
+  minimizeWindow: () => {
+    electron.ipcRenderer.send("minimize-window");
+  },
+  onMainProcessMessage: (callback) => {
+    electron.ipcRenderer.on("main-process-message", (_event, message) => {
+      callback(message);
+    });
+  }
+  //index.ts
 });

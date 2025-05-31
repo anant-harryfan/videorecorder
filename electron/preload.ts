@@ -21,4 +21,22 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
 
   // You can expose other APTs you need here.
   // ...
+  moveWindow: (x: number, y: number) => {
+    ipcRenderer.send('move-window', { x, y });
+  },
+  getWindowPosition: () => {
+    return ipcRenderer.invoke('get-window-position');
+  },
+  closeWindow: () => {
+    ipcRenderer.send('close-window');
+  },
+  minimizeWindow: () => {
+    ipcRenderer.send('minimize-window');
+  },
+  onMainProcessMessage: (callback: (message: string) => void) => {
+    ipcRenderer.on('main-process-message', (_event, message) => {
+      callback(message);
+    });
+  }, //index.ts
 })
+
